@@ -1,14 +1,15 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import React, { useState } from 'react';
-import { Formik } from 'formik';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
+import {Formik} from 'formik';
 import * as Yup from 'yup';
 import Background from '../Components/Background/Background';
-import { darkGreen } from '../Constants/Constants';
-import { CountryPicker } from 'react-native-country-codes-picker';
+import {darkGreen} from '../Constants/Constants';
+import {CountryPicker} from 'react-native-country-codes-picker';
 import Btn from '../Components/Button/Btn';
 import Field from '../Components/Field/Feild';
 import CustomCheckbox from '../Components/CustomCheckbox';
-import { NavigationContainer } from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
+import {userData} from '../Constants/db';
 
 // Validation schema using Yup
 const validationSchema = Yup.object().shape({
@@ -28,7 +29,7 @@ const validationSchema = Yup.object().shape({
     .required('Confirm Password is required'),
 });
 
-const Signup = (props) => {
+const Signup = props => {
   const [showPicker, setShowPicker] = useState(false);
   const [countryCode, setCountryCode] = useState('+1'); // Default country code
   const [isChecked, setIsChecked] = useState(false); // Checkbox state
@@ -36,16 +37,14 @@ const Signup = (props) => {
   const handleCheckboxClick = () => {
     setIsChecked(!isChecked);
     if (!isChecked) {
+      // userData.push()
       props.navigation.navigate('PhoneAuthWebView');
     }
   };
 
-
-
-
   return (
     <Background>
-      <View style={{ alignItems: 'center', width: 450 }}>
+      <View style={{alignItems: 'center', width: 450}}>
         <Text
           style={{
             color: 'white',
@@ -86,6 +85,19 @@ const Signup = (props) => {
             validationSchema={validationSchema}
             onSubmit={values => {
               alert('Account created');
+              const userInfo = values;
+              const firstName = values.firstName;
+              const lastName = values.lastName;
+              const email = values.email;
+              const mobile = values.contactNumber;
+              const password = values.password;
+              userData.push({
+                firstName,
+                lastName,
+                email,
+                mobile,
+                password,
+              }); /* storing user info in a array */
               props.navigation.navigate('Login');
             }}>
             {({
@@ -97,19 +109,16 @@ const Signup = (props) => {
               touched,
             }) => (
               <>
-
-
-
-
                 <Field
                   placeholder="First Name"
                   onChangeText={handleChange('firstName')}
                   onBlur={handleBlur('firstName')}
                   value={values.firstName}
                   error={touched.firstName && errors.firstName}
+                  id="firstName"
                 />
                 {touched.firstName && errors.firstName && (
-                  <Text style={{ color: 'red', fontSize: 12 }}>
+                  <Text style={{color: 'red', fontSize: 12}}>
                     {errors.firstName}
                   </Text>
                 )}
@@ -119,9 +128,10 @@ const Signup = (props) => {
                   onBlur={handleBlur('lastName')}
                   value={values.lastName}
                   error={touched.lastName && errors.lastName}
+                  id="lastName"
                 />
                 {touched.lastName && errors.lastName && (
-                  <Text style={{ color: 'red', fontSize: 12 }}>
+                  <Text style={{color: 'red', fontSize: 12}}>
                     {errors.lastName}
                   </Text>
                 )}
@@ -132,9 +142,10 @@ const Signup = (props) => {
                   onBlur={handleBlur('email')}
                   value={values.email}
                   error={touched.email && errors.email}
+                  id="email"
                 />
                 {touched.email && errors.email && (
-                  <Text style={{ color: 'red', fontSize: 12 }}>
+                  <Text style={{color: 'red', fontSize: 12}}>
                     {errors.email}
                   </Text>
                 )}
@@ -143,8 +154,7 @@ const Signup = (props) => {
                 <View style={styles.phoneInputContainer}>
                   <TouchableOpacity
                     style={styles.countryCodeContainer}
-                    onPress={() => setShowPicker(true)}
-                  >
+                    onPress={() => setShowPicker(true)}>
                     <Text style={styles.countryCodeText}>{countryCode}</Text>
                   </TouchableOpacity>
                   <View style={styles.contactNumberContainer}>
@@ -156,6 +166,7 @@ const Signup = (props) => {
                       value={values.contactNumber}
                       error={touched.contactNumber && errors.contactNumber}
                       style={styles.contactNumberInput} // Add style here
+                      id="contactNumber"
                     />
                     <CustomCheckbox
                       checked={isChecked}
@@ -164,7 +175,7 @@ const Signup = (props) => {
                   </View>
                 </View>
                 {touched.contactNumber && errors.contactNumber && (
-                  <Text style={{ color: 'red', fontSize: 12 }}>
+                  <Text style={{color: 'red', fontSize: 12}}>
                     {errors.contactNumber}
                   </Text>
                 )}
@@ -172,7 +183,7 @@ const Signup = (props) => {
                 {/* Country Picker Modal */}
                 <CountryPicker
                   show={showPicker}
-                  pickerButtonOnPress={(item) => {
+                  pickerButtonOnPress={item => {
                     setCountryCode(item.dial_code);
                     setShowPicker(false);
                   }}
@@ -185,9 +196,10 @@ const Signup = (props) => {
                   onBlur={handleBlur('password')}
                   value={values.password}
                   error={touched.password && errors.password}
+                  id="password"
                 />
                 {touched.password && errors.password && (
-                  <Text style={{ color: 'red', fontSize: 12 }}>
+                  <Text style={{color: 'red', fontSize: 12}}>
                     {errors.password}
                   </Text>
                 )}
@@ -198,9 +210,10 @@ const Signup = (props) => {
                   onBlur={handleBlur('confirmPassword')}
                   value={values.confirmPassword}
                   error={touched.confirmPassword && errors.confirmPassword}
+                  id="confirmPassword"
                 />
                 {touched.confirmPassword && errors.confirmPassword && (
-                  <Text style={{ color: 'red', fontSize: 12 }}>
+                  <Text style={{color: 'red', fontSize: 12}}>
                     {errors.confirmPassword}
                   </Text>
                 )}
@@ -212,7 +225,7 @@ const Signup = (props) => {
                     width: '78%',
                     paddingRight: 16,
                   }}>
-                  <Text style={{ color: 'grey', fontSize: 16 }}>
+                  <Text style={{color: 'grey', fontSize: 16}}>
                     By signing in, you agree to our{' '}
                   </Text>
                   <Text
@@ -234,7 +247,7 @@ const Signup = (props) => {
                     paddingRight: 16,
                     marginBottom: 10,
                   }}>
-                  <Text style={{ color: 'grey', fontSize: 16 }}>and </Text>
+                  <Text style={{color: 'grey', fontSize: 16}}>and </Text>
                   <Text
                     style={{
                       color: darkGreen,
@@ -261,13 +274,13 @@ const Signup = (props) => {
               flexDirection: 'row',
               justifyContent: 'center',
             }}>
-            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
+            <Text style={{fontSize: 16, fontWeight: 'bold'}}>
               Already have an account?{' '}
             </Text>
             <TouchableOpacity
               onPress={() => props.navigation.navigate('Login')}>
               <Text
-                style={{ color: darkGreen, fontWeight: 'bold', fontSize: 16 }}>
+                style={{color: darkGreen, fontWeight: 'bold', fontSize: 16}}>
                 Login
               </Text>
             </TouchableOpacity>
@@ -307,11 +320,3 @@ const styles = StyleSheet.create({
 });
 
 export default Signup;
-
-
-
-
-
-
-
-

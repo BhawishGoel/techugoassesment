@@ -39,7 +39,7 @@ const PhoneAuthWebView = ({navigation}) => {
     console.log(encodedJWT)
   };
 
-  if (!uri) {
+  if (!uri) { 
     // Optionally show a loading indicator while URI is being constructed
     return null;
   }

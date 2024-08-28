@@ -4,9 +4,10 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import Background from '../Components/Background/Background';
 import {darkGreen, green} from '../Constants/Constants';
-
 import Btn from '../Components/Button/Btn';
 import Field from '../Components/Field/Feild';
+import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
 
 const Login = props => {
   // Validation schema using Yup
@@ -18,6 +19,36 @@ const Login = props => {
       .min(6, 'Password must be at least 6 characters')
       .required('Password is required'),
   });
+
+  const handleLoginScreen = () => {
+    navigation.navigate('');
+    const navigation = useNavigation();
+    const dispatch = useDispatch();
+    const allUsers = useSelector(state => state.user.allUsersData);
+    const [secureEntry, setSecureEntry] = useState(true);
+  };
+
+  const handleGoBack = () => {
+    navigation.goback();
+  };
+
+  const handleSignup = () => {
+    navigation.navigate('Signup');
+  };
+
+  const handleLoginPhone = () => {
+    navigation.navigate('LoginInPhone');
+  };
+
+  const handleLogin = values => {
+    //alert(`Email: ${values.email}, Password: ${values.password}`);
+    const list = [];
+    const email = values.email;
+    const password = values.password;
+    list.push({email, password})
+    props.list;
+    props.navigation.navigate('UserProfile');
+  };
 
   return (
     <Background>
@@ -58,7 +89,7 @@ const Login = props => {
             initialValues={{email: '', password: ''}}
             validationSchema={validationSchema}
             onSubmit={values => {
-              alert(`Email: ${values.email}, Password: ${values.password}`);
+              handleLogin(values);
             }}>
             {({
               handleChange,
@@ -76,6 +107,7 @@ const Login = props => {
                   onBlur={handleBlur('email')}
                   value={values.email}
                   error={touched.email && errors.email}
+                  id="email"
                 />
                 {touched.email && errors.email && (
                   <Text style={{color: 'red', fontSize: 12}}>
@@ -89,6 +121,7 @@ const Login = props => {
                   onBlur={handleBlur('password')}
                   value={values.password}
                   error={touched.password && errors.password}
+                  id="password"
                 />
                 {touched.password && errors.password && (
                   <Text style={{color: 'red', fontSize: 12}}>
