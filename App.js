@@ -12,6 +12,8 @@ import UserProfile from './src/Screens/UserProfile';
 import GetData from './src/Screens/GetData';
 import GetDataById from './src/Screens/GetDataById';
 import DeleteUser from './src/Screens/DeleteUser';
+import Relax from './src/Screens/Relax';
+import DisplayInfo from './src/Screens/DisplayInfo';
 
 
 const Stack = createNativeStackNavigator();
@@ -30,6 +32,8 @@ function App() {
           <Stack.Screen name="GetData" component={GetData} />
           <Stack.Screen name="GetDataById" component={GetDataById} />
           <Stack.Screen name="DeleteUser" component={DeleteUser} />
+          <Stack.Screen name="Relax" component={Relax} />
+          <Stack.Screen name="DisplayInfo" component={DisplayInfo} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>

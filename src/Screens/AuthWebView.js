@@ -8,8 +8,8 @@ const PhoneAuthWebView = ({navigation}) => {
   const userInfo = {
     iss: 'phmail',
     aud: 'user',
-    country_code: '+91', 
-    phone_no: '9758688308', 
+    country_code: '+91',
+    phone_no: '9758688308',
   };
 
   // Ensure deviceId is ready before constructing the URI
@@ -18,7 +18,7 @@ const PhoneAuthWebView = ({navigation}) => {
   useEffect(() => {
     const fetchDeviceId = async () => {
       //const id = await getUniqueId();
-     // const newUri = 'google.com';
+      // const newUri = 'google.com';
       const newUri = `https://auth.phone.email/sign-in?countrycode=${userInfo.country_code}&phone_no=${userInfo.phone_no}&redirect_url=&auth_type=4&device=${deviceId}`;
       setUri(newUri);
     };
@@ -34,12 +34,12 @@ const PhoneAuthWebView = ({navigation}) => {
   //   }, [deviceId]);
 
   const handleWebViewMessage = event => {
-   const encodedJWT = event.nativeEvent.data;
+    const encodedJWT = event.nativeEvent.data;
     navigation.navigate('Signup', {token: encodedJWT});
-    console.log(encodedJWT)
+    console.log(encodedJWT);
   };
 
-  if (!uri) { 
+  if (!uri) {
     // Optionally show a loading indicator while URI is being constructed
     return null;
   }

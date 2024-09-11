@@ -43,6 +43,13 @@ const UserProfile = props => {
           btnLabel="Logout"
           Press={handleLogout}
         />
+        <Btn
+          style={{justifyContent: 'center'}}
+          bgcolor={green}
+          textcolor="white"
+          btnLabel="Relax"
+          Press={() => navigation.navigate('Relax')}
+        />
       </View>
     </ScrollView>
   );

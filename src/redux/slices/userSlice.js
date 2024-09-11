@@ -1,9 +1,8 @@
-// src/redux/slices/userSlice.js
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {createSlice, createAsyncThunk} from '@reduxjs/toolkit';
 import axios from 'axios';
 
 // const API_URL = 'https://jsonplaceholder.typicode.com/users';
-const API_URL = 'https://api.restful-api.dev/objects'
+const API_URL = 'https://api.restful-api.dev/objects';
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
   const response = await axios.get(API_URL);
@@ -17,10 +16,12 @@ const userSlice = createSlice({
     loading: false,
     error: null,
   },
+
+  // add set modules
   reducers: {},
-  extraReducers: (builder) => {
+  extraReducers: builder => {
     builder
-      .addCase(fetchUsers.pending, (state) => {
+      .addCase(fetchUsers.pending, state => {
         state.loading = true;
         state.error = null;
       })

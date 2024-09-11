@@ -18,11 +18,11 @@ const DeleteUser = ({navigation, route}) => {
       <TouchableOpacity
         style={styles.backButtonWrapper}
         onPress={() => navigation.goBack()}>
-        <Ionicons
+        {/* <Ionicons
           name={'arrow-back-circle-sharp'}
           color={colors.primary}
           size={30}
-        />
+        /> */}
       </TouchableOpacity>
 
       <Text style={styles.title}>Delete User</Text>
@@ -32,7 +32,7 @@ const DeleteUser = ({navigation, route}) => {
         value={userId}
         onChangeText={text => setUserId(text)}
         placeholder="Enter User ID"
-        placeholderTextColor={colors.secondary}
+        placeholderTextColor={colors.blue}
       />
 
       <Button
@@ -50,6 +50,8 @@ export default DeleteUser;
 const styles = StyleSheet.create({
   container: {
     padding: 20,
+    color: 'black',
+    border: 'black',
   },
   title: {
     fontSize: 30,
@@ -58,12 +60,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   input: {
-    borderColor: 'skyblue',
     borderWidth: 1,
     margin: 20,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 5,
+    color: 'black',
+    border: 'black',
   },
   buttonContent: {
     height: 40,
@@ -76,5 +79,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     margin: 10,
+    color: 'black',
   },
 });

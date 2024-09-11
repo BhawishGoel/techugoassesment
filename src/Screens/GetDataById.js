@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   StyleSheet,
   Text,
@@ -7,14 +7,13 @@ import {
   TextInput,
   ScrollView,
 } from 'react-native';
-import {Button} from 'react-native-paper';
+import { Button } from 'react-native-paper';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import {colors} from '../utils/colors';
+import { colors } from '../utils/colors';
+ 
+const AddObject = ({ navigation, route }) => {
+  const { addNewUser } = route.params;
 
-const AddObject = ({navigation, route}) => {
-  const {addNewUser} = route.params;
-
-  const [id, setId] = useState('');
   const [name, setName] = useState('');
   const [year, setYear] = useState('');
   const [price, setPrice] = useState('');
@@ -23,15 +22,15 @@ const AddObject = ({navigation, route}) => {
 
   const saveData = () => {
     const newUser = {
-      id,
+      id: Date.now().toString(), 
       name,
       year,
       price,
       modal,
       size,
     };
-    addNewUser(newUser); // Call the function passed from GetData.js
-    navigation.goBack(); // Go back to GetData.js
+    addNewUser(newUser); 
+    navigation.goBack(); 
   };
 
   return (
@@ -39,29 +38,22 @@ const AddObject = ({navigation, route}) => {
       <TouchableOpacity
         style={styles.backButtonWrapper}
         onPress={() => navigation.goBack()}>
-        <Ionicons
+        {/* Uncomment the Ionicons line below if you need the back button icon */}
+        {/* <Ionicons
           name={'arrow-back-circle-sharp'}
           color={colors.primary}
           size={30}
-        />
+        /> */}
       </TouchableOpacity>
 
-      <Text style={{fontSize: 30}}>AddObject</Text>
-
-      <TextInput
-        style={styles.input}
-        value={id}
-        onChangeText={text => setId(text)}
-        placeholder="ID"
-        placeholderTextColor={colors.secondary}
-      />
+      <Text style={styles.title}>Add Object</Text>
 
       <TextInput
         style={styles.input}
         value={name}
         onChangeText={text => setName(text)}
         placeholder="Enter Name"
-        placeholderTextColor={colors.secondary}
+        placeholderTextColor={colors.blue}
       />
 
       <TextInput
@@ -69,7 +61,7 @@ const AddObject = ({navigation, route}) => {
         value={year}
         onChangeText={text => setYear(text)}
         placeholder="Enter Year"
-        placeholderTextColor={colors.secondary}
+        placeholderTextColor={colors.blue}
       />
 
       <TextInput
@@ -77,7 +69,7 @@ const AddObject = ({navigation, route}) => {
         value={price}
         onChangeText={text => setPrice(text)}
         placeholder="Enter Price"
-        placeholderTextColor={colors.secondary}
+        placeholderTextColor={colors.blue}
       />
 
       <TextInput
@@ -85,7 +77,7 @@ const AddObject = ({navigation, route}) => {
         value={modal}
         onChangeText={text => setModal(text)}
         placeholder="Enter CPU Model"
-        placeholderTextColor={colors.secondary}
+        placeholderTextColor={colors.blue}
       />
 
       <TextInput
@@ -93,7 +85,7 @@ const AddObject = ({navigation, route}) => {
         value={size}
         onChangeText={text => setSize(text)}
         placeholder="Enter Hard disk size"
-        placeholderTextColor={colors.secondary}
+        placeholderTextColor={colors.blue}
       />
 
       <Button
@@ -112,9 +104,16 @@ const styles = StyleSheet.create({
   container: {
     padding: 20,
   },
+  title: {
+    fontSize: 30,
+    color: 'black',
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
   input: {
-    borderColor: 'skyblue',
     borderWidth: 1,
+    borderColor: 'black',
     margin: 20,
     paddingHorizontal: 10,
     paddingVertical: 5,
@@ -129,4 +128,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     margin: 10,
   },
+  buttonContent: {
+    padding: 10,
+  },
 });
+
+
+// 1724937756345

@@ -1,16 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  TouchableOpacity,
-} from 'react-native';
+import {StyleSheet, Text, View, ScrollView} from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {fetchUsers} from '../redux/slices/userSlice';
 import {Button} from 'react-native-paper';
-import Ionicons from 'react-native-vector-icons/Ionicons';
-import {colors} from '../utils/colors';
 
 const GetData = ({navigation}) => {
   const dispatch = useDispatch();
@@ -61,19 +53,12 @@ const GetData = ({navigation}) => {
       <Text style={styles.title}>Get User Data - {localUsers.length}</Text>
       <View>
         {localUsers.map(item => (
-          <View key={item.id} style={styles.userContainer}>
-            <View style={styles.userInfo}>
-              <Text
-                style={styles.bigblue}
-                onPress={() => toggleUserDetails(item.id)}>
-                ID: {item.id} - Name: {item.name}
-              </Text>
-              <TouchableOpacity
-                onPress={() => deleteUser(item.id)}
-                style={styles.deleteButton}>
-                <Ionicons name="trash-outline" size={24} color={colors.red} />
-              </TouchableOpacity>
-            </View>
+          <View key={item.id}>
+            <Text
+              style={styles.bigblue}
+              onPress={() => toggleUserDetails(item.id)}>
+              ID: {item.id} - Name: {item.name}
+            </Text>
             {selectedUserId === item.id && (
               <View style={styles.details}>
                 <Text>More Details:</Text>
@@ -124,23 +109,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     padding: 10,
     marginVertical: 5,
-    flex: 1,
-  },
-  userContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginVertical: 5,
-    padding: 10,
-    borderColor: 'black',
-    borderWidth: 1,
-    borderRadius: 5,
-    backgroundColor: '#f9f9f9',
-  },
-  userInfo: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flex: 1,
   },
   details: {
     marginTop: 10,
@@ -154,9 +122,6 @@ const styles = StyleSheet.create({
   detailText: {
     fontSize: 16,
     color: 'black',
-  },
-  deleteButton: {
-    marginLeft: 10,
   },
   buttonGroup: {
     flexDirection: 'row',
